@@ -27,7 +27,7 @@ CREATE TABLE Orders (
 );
 GO
 
-CREATE TABLE Logs (
+CREATE TABLE LogSystem (
     Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
     DateTimeCreated DATETIME DEFAULT GETUTCDATE(),
     ImportanceLevel INTEGER NOT NULL,
@@ -52,7 +52,7 @@ VALUES
     (NEWID(), @Prestador2, GETDATE(), 'Pintura Residencial', 1200.00, 'Pintura de sala e cozinha');
 GO
 
-INSERT INTO Logs (Id, DateTimeCreated, ImportanceLevel, EventMessage, Details)
+INSERT INTO LogSystem (Id, DateTimeCreated, ImportanceLevel, EventMessage, Details)
 VALUES
     (NEWID(), GETDATE(), 2, 'Ordem criada com sucesso.', 'ID da Ordem: 1'),
 	(NEWID(), GETDATE(), 2, 'Ordem criada com sucesso.', 'ID da Ordem: 2'),
@@ -65,5 +65,5 @@ GO
 SELECT * FROM Orders;
 GO
 
-SELECT * FROM Logs;
+SELECT * FROM LogSystem;
 GO
