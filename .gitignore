@@ -1,0 +1,8 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/API/FullStack/.vs
+/API/FullStack/FullStack/bin
+/API/FullStack/FullStack/obj
+/API/FullStack/FullStack/appsettings.Development.json
