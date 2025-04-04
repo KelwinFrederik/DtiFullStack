@@ -2,10 +2,10 @@
 {
     public class ChangeOrderStatusEvent
     {
-        public Guid OrderId { get; set; }
+        public int OrderId { get; set; }
         public string Status { get; set; }
 
-        public ChangeOrderStatusEvent(Guid ordemId, string status)
+        public ChangeOrderStatusEvent(int ordemId, string status)
         {
             OrderId = ordemId;
             Status = status;

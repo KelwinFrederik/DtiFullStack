@@ -18,9 +18,7 @@ namespace FullStack.Data
                 .WithOne(o => o.Provider)
                 .HasForeignKey(o => o.IdProvider);
 
-            modelBuilder.Entity<Order>()
-                .Property(o => o.CurrentStatus)
-                .HasDefaultValue(StatusOrderEnum.PENDENTE);
+            modelBuilder.Entity<Order>().HasKey(o => o.Id); ;
 
             modelBuilder.Entity<LogSystem>().HasKey(l => l.Id);
         }

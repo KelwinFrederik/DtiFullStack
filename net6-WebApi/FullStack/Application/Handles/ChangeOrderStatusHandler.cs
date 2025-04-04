@@ -21,15 +21,15 @@ namespace FullStack.Application.Handles
         {
             var ordem = await _dbContext.Orders.FindAsync(request.OrderId);
             if (ordem == null) return false;
-            if(ordem.CurrentStatus == (int)request.NovoStatus) return true;
+            if(ordem.CurrentStatus == request.NewStatus) return true;
 
-            if (request.NovoStatus == StatusOrderEnum.APROVADO && ordem.TotalValue > 500)
+            if (request.NewStatus == (int)StatusOrderEnum.APROVADO && ordem.TotalValue > 500)
                 ordem.TotalValue *= 0.9m;
             
-            ordem.CurrentStatus = (int)request.NovoStatus;
+            ordem.CurrentStatus = (int)request.NewStatus;
             await _dbContext.SaveChangesAsync();
 
-            var orderAcceptedEvent = new ChangeOrderStatusEvent(request.OrderId,request.NovoStatus.ToString());
+            var orderAcceptedEvent = new ChangeOrderStatusEvent(request.OrderId,request.NewStatus.ToString());
             await _eventStore.Save(orderAcceptedEvent,(int)LogLevel.Information);
 
             return true;

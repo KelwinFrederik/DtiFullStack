@@ -2,8 +2,8 @@
 {
     public class Order
     {
-        public Guid Id { get; set; }
-        public Guid IdProvider { get; set; }
+        public int Id { get; set; }
+        public int IdProvider { get; set; }
         public DateTime DateTimeCreated { get; set; } = DateTime.UtcNow;
         public string Category { get; set; } = string.Empty;
         public decimal TotalValue { get; set; }
