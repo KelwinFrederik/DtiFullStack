@@ -28,8 +28,9 @@ namespace FullStack.Application.Handles
             
             ordem.CurrentStatus = (int)request.NewStatus;
             await _dbContext.SaveChangesAsync();
-
-            var orderAcceptedEvent = new ChangeOrderStatusEvent(request.OrderId,request.NewStatus.ToString());
+            
+            var statusString = Enum.GetName(typeof(StatusOrderEnum), request.NewStatus)??"-";
+            var orderAcceptedEvent = new ChangeOrderStatusEvent(request.OrderId, statusString);
             await _eventStore.Save(orderAcceptedEvent,(int)LogLevel.Information);
 
             return true;
