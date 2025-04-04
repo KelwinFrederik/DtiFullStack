@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center">
       <div class="profile-circle">{{ order.providerFirstName.charAt(0) }}</div>
       <div class="ms-3">
-        <h5 class="mb-0">{{ order.providerFirstName }}</h5>
+        <h5 class="mb-0">{{ `${order.providerFirstName} ${order.providerLastName} `}}</h5>
         <small class="text-muted">{{ order.dateTimeCreated }}</small>
       </div>
     </div>
