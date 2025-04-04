@@ -1,6 +1,7 @@
 ﻿using FullStack.Application.Commands;
 using FullStack.Application.EventSourcing;
 using FullStack.Data;
+using FullStack.Entities;
 using FullStack.Interfaces;
 using MediatR;
 
@@ -10,23 +11,30 @@ namespace FullStack.Application.Handles
     {
         private readonly AppDbContext _dbContext;
         private readonly IEventStore _eventStore;
+        private readonly IEmailService _emailService;
 
-        public ChangeOrderStatusHandler(AppDbContext dbContext, IEventStore eventStore)
+        public ChangeOrderStatusHandler(AppDbContext dbContext, IEventStore eventStore, IEmailService emailService)
         {
             _dbContext = dbContext;
             _eventStore = eventStore;
+            _emailService = emailService;
         }
 
         public async Task<bool> Handle(ChangeOrderStatusCommand request, CancellationToken cancellationToken)
         {
-            var ordem = await _dbContext.Orders.FindAsync(request.OrderId);
-            if (ordem == null) return false;
-            if(ordem.CurrentStatus == request.NewStatus) return true;
+            var order = await _dbContext.Orders.FindAsync(request.OrderId);
+            if (order == null) return false;
+            if(order.CurrentStatus == request.NewStatus) return true;
 
-            if (request.NewStatus == (int)StatusOrderEnum.APROVADO && ordem.TotalValue > 500)
-                ordem.TotalValue *= 0.9m;
-            
-            ordem.CurrentStatus = (int)request.NewStatus;
+            order.CurrentStatus = (int)request.NewStatus;
+            if (request.NewStatus == (int)StatusOrderEnum.APROVADO)
+            {
+                if(order.TotalValue > 500)
+                    order.TotalValue *= 0.9m;
+
+                await _emailService.SendEmailAsync(order.Provider.Email, "Pedido Aceito", order);
+            }
+
             await _dbContext.SaveChangesAsync();
             
             var statusString = Enum.GetName(typeof(StatusOrderEnum), request.NewStatus)??"-";
