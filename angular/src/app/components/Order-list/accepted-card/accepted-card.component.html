@@ -1,0 +1,25 @@
+<div class="card accepted-card mt-3">
+  <div class="card-body">
+    <div class="d-flex align-items-center">
+      <div class="profile-circle">{{ order.providerFirstName.charAt(0) }}</div>
+      <div class="ms-3">
+        <h5 class="mb-0">{{ order.providerFirstName }}</h5>
+        <small class="text-muted">{{ order.dateTimeCreated }}</small>
+      </div>
+    </div>
+
+    <div class="mt-3 d-flex flex-wrap text-muted">
+      <span class="me-3"><i class="bi bi-geo-alt"></i> {{ order.providerSuburb }}</span>
+      <span class="me-3"><i class="bi bi-briefcase"></i> {{ order.category }}</span>
+      <span class="me-3">Job ID: {{ order.id }}</span>
+      <span class="fw-bold text-dark">${{order.value }}</span>
+    </div>
+
+    <div class="mt-2">
+      <a [href]="'tel:' + order.phone" class="text-danger me-3"><i class="bi bi-telephone"></i> {{ order.providerPhone }}</a>
+      <a [href]="'mailto:' + order.email" class="text-primary"><i class="bi bi-envelope"></i> {{ order.providerEmail }}</a>
+    </div>
+
+    <p class="mt-3 text-muted">{{ order.details }}</p>
+  </div>
+</div>

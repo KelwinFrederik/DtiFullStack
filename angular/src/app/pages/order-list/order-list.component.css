@@ -1,0 +1,12 @@
+button{
+  text-transform: capitalize;
+  font-size: 1.6rem;
+}
+
+.container{
+  max-width: 900px;
+}
+
+.card{
+  height: 70% !important;
+}

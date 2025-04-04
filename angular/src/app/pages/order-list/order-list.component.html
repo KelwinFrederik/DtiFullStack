@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <div class="card shadow-lg rounded-4 p-4">
+    <ul class="nav nav-pills nav-justified mb-3" id="tabOrdersNav">
+      <li class="nav-item">
+        <button class="nav-link active fw-bold" id="invited-tab" data-bs-toggle="tab" data-bs-target="#invited"
+          type="button" role="tab" aria-controls="invited" aria-selected="true">
+          Invited
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link fw-bold" id="accepted-tab" data-bs-toggle="tab" data-bs-target="#accepted"
+          type="button" role="tab" aria-controls="accepted" aria-selected="false">
+          Accepted
+        </button>
+      </li>      
+    </ul>
+    <hr/>
+    
+    <div class="tab-content mt-3" id="tabOrdersContent">
+      <div class="tab-pane fade show active p-3" id="invited" role="tabpanel" aria-labelledby="invited-tab">
+        @for (order of invitedOrders; track order.id) {
+          <app-invited-card  [order]="order"(accept)="changeStatus(order.id, 1)"
+          (decline)="changeStatus(order.id, 2)"></app-invited-card>
+        }
+      </div>
+      <div class="tab-pane fade p-3" id="accepted" role="tabpanel" aria-labelledby="accepted-tab">
+        @for (order of acceptedOrders; track order.id) {
+          <app-accepted-card [order]="order"></app-accepted-card>
+        }
+      </div>
+    </div>
+  </div>
+</div>
